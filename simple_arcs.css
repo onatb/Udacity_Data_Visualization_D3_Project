@@ -1,5 +1,8 @@
-.arc {
+.arc1 {
     fill: blue;
+}
+.arc2 {
+    fill: orange;
 }
 .arcText {
   fill: white;
