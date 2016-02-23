@@ -16,11 +16,23 @@ var arc2 = d3.svg.arc()
     .outerRadius(70)
     .startAngle(Math.PI)
     .endAngle(2 * Math.PI);
-    
+
+var i1 = 0,
+    i2 = 0;
+
 //First half of the arc
 svg.append("path")
     .attr("class", "arc1")
     .attr("id", "1")
+    .on("click", function(d) {
+        if(i1 % 2 === 0) {
+            d3.select(this).style("fill", "lightblue")
+            i1++;
+        } else {
+            d3.select(this).style("fill", "grey")
+            i1++;
+        }
+    })
     .attr("d", arc1);
     
 svg.append("text")
@@ -37,6 +49,15 @@ svg.append("text")
 svg.append("path")
     .attr("class", "arc2")
     .attr("id", "2")
+    .on("click", function(d) {
+        if(i2 % 2 === 0) {
+            d3.select(this).style("fill", "red")
+            i2++;
+        } else {
+            d3.select(this).style("fill", "grey")
+            i2++;
+        }
+    })
     .attr("d", arc2);
     
 svg.append("text")
