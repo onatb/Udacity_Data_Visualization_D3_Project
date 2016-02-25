@@ -5,6 +5,23 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
     <style>
+      h1 {
+        text-align: center;
+        font-family: 'Courgette', sans-serif;
+        font-size: 26px;
+      }
+      .mid-percent {
+        text-align: center;
+        font-family: 'Courgette', sans-serif;
+        font-size: 20px;
+        font-weight: bold; 
+      }
+      .text-hover {
+        text-align: center;
+        font-family: 'Courgette', sans-serif;
+        font-size: 12px;
+        fill: grey;
+      }
       #chart {
         text-align: center;
       }
@@ -22,6 +39,8 @@
   </head>
 
   <body>
+
+    <h1>Titanic Survivors</h1>
 
     <div id="chart"></div>
 
@@ -46,51 +65,150 @@
 
 
       var limbo = [{
-        name: "Best"
+        id: 0,
+        disp: "Best",
+        values: {sex: "female", pclass: 1},
+        desc_hover: "",
+        desc_click: "",
+        color_hover: "#FFFF82", 
+        color_click: "#FFFF58",
+        clicked: 0
       }, {
-        name: "Female"
+        id: 1,
+        disp: "Female",
+        values: {sex: "female"},
+        desc_hover: "Female Passengers",
+        desc_click: "",
+        color_hover: "#FFC387", 
+        color_click: "#FF9B39",
+        clicked: 0
       }, {
-        name: "Male"
+        id: 2,
+        disp: "Male",
+        values: {sex: "male"},
+        desc_hover: "Male Passengers",
+        desc_click: "",
+        color_hover: "#FFC387", 
+        color_click: "#FF9B39",
+        clicked: 0
       }, {
-        name: "Class 1"
+        id: 3,
+        disp: "Class 1",
+        values: {pclass: 1},
+        desc_hover: "1st Class Passengers",
+        desc_click: "",
+        color_hover: "#F1DBF5", 
+        color_click: "#D8AADF",
+        clicked: 0
       }, {
-        name: "Class 2"
+        id: 4,
+        disp: "Class 2",
+        values: {pclass: 2},
+        desc_hover: "2nd Class Passengers",
+        desc_click: "",
+        color_hover: "#F1DBF5",
+        color_click: "#D8AADF",
+        clicked: 0
       }, {
-        name: "Class 3"
+        id: 5,
+        disp: "Class 3",
+        values: {pclass: 3},
+        desc_hover: "3rd Class Passengers",
+        desc_click: "",
+        color_hover: "#F1DBF5",
+        color_click: "#D8AADF",
+        clicked: 0
       }, {
-        name: "0-21"
+        id: 6,
+        disp: "0-21",
+        values: {age: [0,21]},
+        desc_hover: "Passengers below 21 years old",
+        desc_click: "",
+        color_hover: "#AAE3A7", 
+        color_click: "#7BCE77",
+        clicked: 0
       }, {
-        name: "22-28"
+        id: 7,
+        disp: "22-28",
+        values: {age: [22,28]},
+        desc_hover: "Passengers between 22-28 years old",
+        desc_click: "",
+        color_hover: "#AAE3A7", 
+        color_click: "#7BCE77",
+        clicked: 0
       }, {
-        name: "29-39"
+        id: 8,
+        disp: "29-39",
+        values: {age: [29,39]},
+        desc_hover: "Passengers between 29-39 years old",
+        desc_click: "",
+        color_hover: "#AAE3A7", 
+        color_click: "#7BCE77",
+        clicked: 0
       }, {
-        name: "40-80"
+        id: 9,
+        disp: "40-80",
+        values: {age: [40,80]},
+        desc_hover: "Passengers between 40-80 years old",
+        desc_click: "",
+        color_hover: "#AAE3A7", 
+        color_click: "#7BCE77",
+        clicked: 0
       }, {
-        name: "SibSp-0"
+        id: 10,
+        disp: "No SibSp ",
+        values: {sibsp: 0},
+        desc_hover: "No siblings or spouse aboard",
+        desc_click: "",
+        color_hover: "#B1D3F0", 
+        color_click: "#5796CA",
+        clicked: 0
       }, {
-        name: "SibSp-1"
+        id: 11,
+        disp: "1 SibSp",
+        values: {sibsp: 1},
+        desc_hover: "Sibling or spouse aboard",
+        desc_click: "",
+        color_hover: "#B1D3F0", 
+        color_click: "#5796CA",
+        clicked: 0
       }, {
-        name: "SibSp-2+"
+        id: 12,
+        disp: "2+ SibSp",
+        values: {sibsp: 2},
+        desc_hover: "Both sibling(s) and spouse aboard",
+        desc_click: "",
+        color_hover: "#B1D3F0", 
+        color_click: "#5796CA",
+        clicked: 0
       }, {
-        name: "ParCh-0"
+        id: 13,
+        disp: "No ParCh",
+        values: {parch: 0},
+        desc_hover: "No parent or children aboard",
+        desc_click: "",
+        color_hover: "#FF9A9A", 
+        color_click: "#F04949",
+        clicked: 0
       }, {
-        name: "ParCh-1"
+        id: 14,
+        disp: "1 ParCh",
+        values: {parch: 1},
+        desc_hover: "1 parent or children aboard",
+        desc_click: "",
+        color_hover: "#FF9A9A", 
+        color_click: "#F04949",
+        clicked: 0
       }, {
-        name: "ParCh-2+"
+        id: 15,
+        disp: "2+ ParCh",
+        values: {parch: 2},
+        desc_hover: "2 or more parent(s) or children(s) aboard",
+        desc_click: "",
+        color_hover: "#FF9A9A", 
+        color_click: "#F04949",
+        clicked: 0
       }];
-
-      var arc_id = 0;
-      var arc_io_radius = [
-        [70, 90]
-      ];
-
-      var arc111 = d3.svg.arc()
-        .innerRadius(function() {
-          return arc_io_radius[arc_id][0];
-        })
-        .outerRadius(function() {
-          return arc_io_radius[arc_id][1];
-        })
 
       var arc = d3.svg.arc()
         .innerRadius(width * 0.9 / 2)
@@ -103,8 +221,6 @@
         .padAngle(.01)
         .sort(null);
 
-      var i = 0;
-
       svg.selectAll(".listArc")
         .data(pie(limbo))
         .enter().append("path")
@@ -114,19 +230,29 @@
         })
         .attr("d", arc)
         .on("mouseover", function(d) {
-          d3.select(this).style("fill", "#fee0d2");
+          if(d.data.clicked === 0) {
+            d3.select(this).style("fill", d.data.color_hover);
+            svg.append("text")
+              .attr("class", "text-hover")
+              .attr("text-anchor", "middle")
+              .attr("dy", 95)
+              .text(d.data.desc_hover);
+          }
         })
         .on("mouseout", function(d) {
-          if (d3.select(this).style("fill") !== "#fc9272")
+          if (d.data.clicked === 0) {
             d3.select(this).style("fill", "white");
+            d3.select(".text-hover").remove();
+          }
         })
         .on("click", function(d) {
-          d3.select(this)
-            .style("fill", "#fc9272");
-          d3.selectAll(".listArc")
-            .transition()
-            .duration(1500)
-            .attr("transform", "rotate(60)");
+          if(d.data.clicked === 0) {
+            d.data.clicked = 1;
+            d3.select(this)
+              .style("fill", d.data.color_click);
+            d3.select(".text-hover").remove();
+          } else
+            d.data.clicked = 0;
         });
 
 
@@ -141,7 +267,33 @@
           return "#listArc_" + i;
         })
         .text(function(d) {
-          return d.name;
+          return d.disp;
+        })
+        .on("mouseover", function(d) {
+          if(d.clicked === 0) {
+            d3.select(d3.select(this).attr("href")).style("fill", d.color_hover);
+            svg.append("text")
+              .attr("class", "text-hover")
+              .attr("text-anchor", "middle")
+              .attr("dy", 95)
+              .text(d.desc_hover);
+          }
+        })
+        .on("mouseout", function(d) {
+          if (d.clicked === 0) {
+            d3.select(d3.select(this).attr("href")).style("fill", "white");
+            d3.select(".text-hover").remove();
+          }
+        })
+        .on("click", function(d) {
+          if(d.clicked === 0) {
+            d.clicked = 1;
+            d3.select(d3.select(this).attr("href"))
+              .style("fill", d.color_click);
+            d3.select(".text-hover").remove();
+          } else
+            d.clicked = 0;
+          debugger;
         });
 
     </script>
