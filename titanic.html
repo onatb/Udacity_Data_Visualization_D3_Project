@@ -257,14 +257,6 @@
           .padAngle(.01)
           .sort(null);
 
-        function print_result (result) {
-          svg.append("text")
-            .attr("class", "mid-percent")
-            .attr("text-anchor", "middle")
-            .attr("dy", -45)
-            .text("% " + result);
-        }
-
         function calculate_percent (titanic_data, limbo) {
           var query_string_survived = "person.survived === '1'",
               query_string_total = "";
@@ -275,7 +267,6 @@
             }
           }
           query_string_total = query_string_total.slice(4, query_string_total.length);
-          debugger;
           var survived = 0,
               total = 0;
          
@@ -285,8 +276,14 @@
             if(eval(query_string_total))
               total += 1;
           });
-          var result = (survived / total) * 100;
-          return result.toFixed(2);
+          if(total !== 0) {
+            var result = (survived / total) * 100;
+            svg.append("text")
+              .attr("class", "mid-percent")
+              .attr("text-anchor", "middle")
+              .attr("dy", -45)
+              .text("% " + result.toFixed(2));
+          }
         }
 
         function id_finder (limbo, i) {
@@ -297,7 +294,6 @@
         }
 
         function update_elements (d, limbo, type) {
-          var result = 0;
           if(type === "add") {
             d.clicked = 0;
             d3.select(".mid-percent").remove();
@@ -313,7 +309,6 @@
           } else {
             d3.select(".text-hover").remove();
             d3.select(".mid-percent").remove();
-            result = calculate_percent(titanic_data, limbo);
             d.on_click_remove.forEach(function(i) {
               limbo.splice(id_finder(limbo, i), 1);
             });
@@ -321,8 +316,7 @@
           d3.selectAll(".listArc").remove();
           d3.selectAll(".listText").remove();
           update_donut(limbo);
-          if(result !== 0)
-            print_result(result);
+          calculate_percent(titanic_data, limbo);
         }
 
         function update_donut (limbo) {
