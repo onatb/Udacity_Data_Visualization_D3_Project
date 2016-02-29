@@ -10,11 +10,23 @@
         font-family: 'Courgette', sans-serif;
         font-size: 26px;
       }
+      .first-run-text {
+        text-align: center;
+        font-family: 'Courgette', sans-serif;
+        font-size: 13px;
+        font-style: italic; 
+      }
       .mid-percent {
         text-align: center;
         font-family: 'Courgette', sans-serif;
         font-size: 18px;
         font-weight: bold; 
+      }
+      .mid-text {
+        text-align: center;
+        font-family: 'Courgette', sans-serif;
+        font-size: 15px;
+        font-style: italic; 
       }
       .text-hover {
         text-align: center;
@@ -55,19 +67,17 @@
                 "sex": "female",
                 "pclass": 1
             },
-            "desc_hover": "",
-            "desc_click": "",
+            "desc_hover": "Hint: 3 clicks are enough.",
             "color_hover": "#FFFF82",
             "color_click": "#FFFF58",
             "clicked": 0,
             "on_click_remove": [],
-            "range": []
+            "range": [0]
         }, {
             "id": 1,
             "disp": "Female",
             "query_string": "person.sex === 'female'",
             "desc_hover": "Female Passengers",
-            "desc_click": "",
             "color_hover": "#F1DBF5",
             "color_click": "#D8AADF",
             "clicked": 0,
@@ -78,7 +88,6 @@
             "disp": "Male",
             "query_string": "person.sex === 'male'",
             "desc_hover": "Male Passengers",
-            "desc_click": "",
             "color_hover": "#F1DBF5",
             "color_click": "#D8AADF",
             "clicked": 0,
@@ -89,7 +98,6 @@
             "disp": "Class 1",
             "query_string": "person.pclass === '1'",
             "desc_hover": "1st Class Passengers",
-            "desc_click": "",
             "color_hover": "#FFC387",
             "color_click": "#FF9B39",
             "clicked": 0,
@@ -100,7 +108,6 @@
             "disp": "Class 2",
             "query_string": "person.pclass === '2'",
             "desc_hover": "2nd Class Passengers",
-            "desc_click": "",
             "color_hover": "#FFC387",
             "color_click": "#FF9B39",
             "clicked": 0,
@@ -111,7 +118,6 @@
             "disp": "Class 3",
             "query_string": "person.pclass === '3'",
             "desc_hover": "3rd Class Passengers",
-            "desc_click": "",
             "color_hover": "#FFC387",
             "color_click": "#FF9B39",
             "clicked": 0,
@@ -122,7 +128,6 @@
             "disp": "0-21",
             "query_string": "person.age >= '0' && person.age <= '21'",
             "desc_hover": "Passengers below 21 years old",
-            "desc_click": "",
             "color_hover": "#AAE3A7",
             "color_click": "#7BCE77",
             "clicked": 0,
@@ -133,7 +138,6 @@
             "disp": "22-28",
             "query_string": "person.age >= '22' && person.age <= '28'",
             "desc_hover": "Passengers between 22-28 years old",
-            "desc_click": "",
             "color_hover": "#AAE3A7",
             "color_click": "#7BCE77",
             "clicked": 0,
@@ -155,7 +159,6 @@
             "disp": "40-80",
             "query_string": "person.age >= '40' && person.age <= '80'",
             "desc_hover": "Passengers between 40-80 years old",
-            "desc_click": "",
             "color_hover": "#AAE3A7",
             "color_click": "#7BCE77",
             "clicked": 0,
@@ -166,7 +169,6 @@
             "disp": "No SibSp ",
             "query_string": "person.sibsp === '0'",
             "desc_hover": "No siblings or spouse aboard",
-            "desc_click": "",
             "color_hover": "#FF9A9A",
             "color_click": "#F04949",
             "clicked": 0,
@@ -177,7 +179,6 @@
             "disp": "1 SibSp",
             "query_string": "person.sibsp === '1'",
             "desc_hover": "Sibling or spouse aboard",
-            "desc_click": "",
             "color_hover": "#FF9A9A",
             "color_click": "#F04949",
             "clicked": 0,
@@ -188,7 +189,6 @@
             "disp": "2+ SibSp",
             "query_string": "person.sibsp >= '2'",
             "desc_hover": "Both sibling(s) and spouse aboard",
-            "desc_click": "",
             "color_hover": "#FF9A9A",
             "color_click": "#F04949",
             "clicked": 0,
@@ -199,7 +199,6 @@
             "disp": "No ParCh",
             "query_string": "person.parch === '0'",
             "desc_hover": "No parent or children aboard",
-            "desc_click": "",
             "color_hover": "#B1D3F0",
             "color_click": "#5796CA",
             "clicked": 0,
@@ -210,7 +209,6 @@
             "disp": "1 ParCh",
             "query_string": "person.parch === '1'",
             "desc_hover": "1 parent or children aboard",
-            "desc_click": "",
             "color_hover": "#B1D3F0",
             "color_click": "#5796CA",
             "clicked": 0,
@@ -221,7 +219,6 @@
             "disp": "2+ ParCh",
             "query_string": "person.parch >= '2'",
             "desc_hover": "2 or more parent(s) or children(s) aboard",
-            "desc_click": "",
             "color_hover": "#B1D3F0",
             "color_click": "#5796CA",
             "clicked": 0,
@@ -282,7 +279,13 @@
               .attr("class", "mid-percent")
               .attr("text-anchor", "middle")
               .attr("dy", -45)
-              .text("% " + result.toFixed(2));
+              .text(result.toFixed(2) + " %");
+
+            svg.append("text")
+              .attr("class", "mid-text")
+              .attr("text-anchor", "middle")
+              .attr("dy", -20)
+              .text("of the selected passengers survived");
           }
         }
 
@@ -297,6 +300,7 @@
           if(type === "add") {
             d.clicked = 0;
             d3.select(".mid-percent").remove();
+            d3.select(".mid-text").remove();
             var ix = id_finder(limbo, d["id"]);
             var features = [];
             d.range.forEach(function(i) {
@@ -309,6 +313,7 @@
           } else {
             d3.select(".text-hover").remove();
             d3.select(".mid-percent").remove();
+            d3.select(".mid-text").remove();
             d.on_click_remove.forEach(function(i) {
               limbo.splice(id_finder(limbo, i), 1);
             });
@@ -400,9 +405,42 @@
             });
         }
 
-        var lim = JSON.parse(JSON.stringify(olimbo));
-        update_donut(lim);
+        function first_run (limbo) {
+          //"Such As Women, Children And The Upper-class Passengers."
+          var first_run_text = ["Although There Was Some Luck Involved In Surviving,", "Some Groups Of People", "Were More Likely To Survive Than Others,", "Try Clicking On Different Features", "Can You Figure Out", "Which Group Has The Highest Survival Rate ?"]
+          var y = -75;
           
+          svg.selectAll(".first-run-text")
+            .data(first_run_text)
+            .enter()
+            .append("text")
+            .attr("class", "first-run-text")
+            .attr("text-anchor", "middle")
+            .attr("dy", function(d) {
+              return y += 20;
+            })
+            .style("opacity", 0)
+            .text(function(d) {
+              return d
+            })
+            .transition()
+            .duration(10000)
+            .style("opacity", 100);
+        }
+
+        var limbo = JSON.parse(JSON.stringify(olimbo));
+        first_run(limbo);
+
+        setTimeout(function(){
+          update_donut(limbo);
+          d3.selectAll(".first-run-text")
+            .transition()
+            .duration(7500)
+            .style("opacity", 0)
+            .remove();
+        }, 5000);
+        
+
         /*
         var olimbo;
         d3.json("olimbo.json", function(error, json) {

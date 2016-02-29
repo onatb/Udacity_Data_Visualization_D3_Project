@@ -9,3 +9,7 @@ http://mbostock.github.io/d3/talk/20111116/bundle.html
 https://www.jasondavies.com/coffee-wheel/
 http://bl.ocks.org/kerryrodden/7090426
 http://blog.visual.ly/creating-animations-and-transitions-with-d3-js/
+https://en.wikipedia.org/wiki/Passengers_of_the_RMS_Titanic
+https://www.kaggle.com/c/titanic
+biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.xls
+http://optional.is/required/2012/04/25/titanic-visualized/
