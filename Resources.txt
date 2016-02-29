@@ -1,0 +1,11 @@
+https://medium.com/@c_behrens/enter-update-exit-6cafc6014c36#.jh54dwby2
+http://stackoverflow.com/questions/5310304/remove-json-element
+http://bl.ocks.org/nbremer/bf6d15082ea81ce69b55
+http://colorbrewer2.org/
+http://www.visualcinnamon.com/2015/09/placing-text-on-arcs.html
+http://d3js.org/
+http://bl.ocks.org/mbostock/4063423
+http://mbostock.github.io/d3/talk/20111116/bundle.html
+https://www.jasondavies.com/coffee-wheel/
+http://bl.ocks.org/kerryrodden/7090426
+http://blog.visual.ly/creating-animations-and-transitions-with-d3-js/
