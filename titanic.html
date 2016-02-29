@@ -16,6 +16,12 @@
         font-size: 13px;
         font-style: italic; 
       }
+      .best-text {
+        text-align: center;
+        font-family: 'Courgette', sans-serif;
+        font-size: 12px;
+        font-style: italic; 
+      }
       .mid-percent {
         text-align: center;
         font-family: 'Courgette', sans-serif;
@@ -311,6 +317,19 @@
               limbo.splice(ix, 0, features[j]);
             }
           } else {
+            if(d["id"] === 0) {
+              svg.append("text")
+                .attr("class", "best-text")
+                .attr("text-anchor", "middle")
+                .attr("dy", -80)
+                .style("font-size", "12px")
+                .text("Try Clicking Women, Children And Upper-class Passengers")
+                .transition()
+                .duration(2000)
+                .style("opacity", 0)
+                .remove();
+              d.clicked = 0;
+            }
             d3.select(".text-hover").remove();
             d3.select(".mid-percent").remove();
             d3.select(".mid-text").remove();
@@ -406,7 +425,6 @@
         }
 
         function first_run (limbo) {
-          //"Such As Women, Children And The Upper-class Passengers."
           var first_run_text = ["Although There Was Some Luck Involved In Surviving,", "Some Groups Of People", "Were More Likely To Survive Than Others,", "Try Clicking On Different Features", "Can You Figure Out", "Which Group Has The Highest Survival Rate ?"]
           var y = -75;
           
